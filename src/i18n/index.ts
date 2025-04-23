@@ -1,9 +1,7 @@
-// src/i18n/index.ts
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
-// Import translation files
 import enTranslation from "@/i18n/locales/en.json";
 import arTranslation from "@/i18n//locales/ar.json";
 import frTranslation from "@/i18n//locales/fr.json";
