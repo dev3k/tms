@@ -10,6 +10,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { Link } from "@tanstack/react-router";
 
 export interface BreadcrumbItem {
   label: string;
@@ -43,8 +44,8 @@ export function PageHeader({ breadcrumbs }: PageHeaderProps) {
                   {crumb.isCurrentPage ? (
                     <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
                   ) : (
-                    <BreadcrumbLink href={crumb.href || "#"}>
-                      {crumb.label}
+                    <BreadcrumbLink asChild>
+                      <Link to={crumb.href || "#"}>{crumb.label}</Link>
                     </BreadcrumbLink>
                   )}
                 </BreadcrumbItem>

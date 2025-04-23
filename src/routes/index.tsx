@@ -6,7 +6,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Dashboard() {
-  const breadcrumbs = [{ label: "Dashboard", href: "#" }];
+  const breadcrumbs = [{ label: "Dashboard", isCurrentPage: true }];
 
   return (
     <>

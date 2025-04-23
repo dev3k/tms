@@ -35,7 +35,8 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Logo } from "@/components/ui/logo.tsx";
-import { Link } from "@tanstack/react-router";
+import { Link, useRouter } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 
 const data = {
   user: {
@@ -43,11 +44,73 @@ const data = {
     email: "firas@salalem.com",
     avatar: "/avatars/shadcn.jpg",
   },
+  activities: [
+    {
+      name: "Online Courses",
+      url: "/activities/online-courses",
+      icon: BookOpen,
+    },
+    {
+      name: "Exams",
+      url: "#",
+      icon: ClipboardCheck,
+    },
+    {
+      name: "Courses",
+      url: "#",
+      icon: BookMarked,
+    },
+    {
+      name: "Workshops",
+      url: "#",
+      icon: CalendarClock,
+    },
+    {
+      name: "Lectures",
+      url: "#",
+      icon: Presentation,
+    },
+    {
+      name: "Conferences",
+      url: "#",
+      icon: Presentation,
+    },
+    {
+      name: "Career Guidance's",
+      url: "#",
+      icon: Compass,
+    },
+    {
+      name: "Internships",
+      url: "#",
+      icon: Briefcase,
+    },
+    {
+      name: "Job Rotations",
+      url: "#",
+      icon: Shuffle,
+    },
+    {
+      name: "Graduation Studies",
+      url: "#",
+      icon: GraduationCap,
+    },
+    {
+      name: "Competitions",
+      url: "#",
+      icon: Medal,
+    },
+    {
+      name: "Training Programs",
+      url: "#",
+      icon: Workflow,
+    },
+  ],
   navManagement: [
     {
       title: "Organization Groups",
-      url: "#",
       icon: BuildingIcon,
+      url: "/management/hierarchy",
       isActive: false,
     },
     {
@@ -108,68 +171,6 @@ const data = {
       ],
     },
   ],
-  projects: [
-    {
-      name: "Online Courses",
-      url: "#",
-      icon: BookOpen,
-    },
-    {
-      name: "Exams",
-      url: "#",
-      icon: ClipboardCheck,
-    },
-    {
-      name: "Courses",
-      url: "#",
-      icon: BookMarked,
-    },
-    {
-      name: "Workshops",
-      url: "#",
-      icon: CalendarClock,
-    },
-    {
-      name: "Lectures",
-      url: "#",
-      icon: Presentation,
-    },
-    {
-      name: "Conferences",
-      url: "#",
-      icon: Presentation,
-    },
-    {
-      name: "Career Guidance's",
-      url: "#",
-      icon: Compass,
-    },
-    {
-      name: "Internships",
-      url: "#",
-      icon: Briefcase,
-    },
-    {
-      name: "Job Rotations",
-      url: "#",
-      icon: Shuffle,
-    },
-    {
-      name: "Graduation Studies",
-      url: "#",
-      icon: GraduationCap,
-    },
-    {
-      name: "Competitions",
-      url: "#",
-      icon: Medal,
-    },
-    {
-      name: "Training Programs",
-      url: "#",
-      icon: Workflow,
-    },
-  ],
   navSecondary: [
     {
       title: "Support",
@@ -185,6 +186,19 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const router = useRouter();
+  const [currentPath, setCurrentPath] = useState(
+    router.state.location.pathname,
+  );
+
+  // Update currentPath when router location changes
+  useEffect(() => {
+    const unsubscribe = router.subscribe("onLoad", () => {
+      setCurrentPath(router.state.location.pathname);
+    });
+
+    return () => unsubscribe();
+  }, [router]);
   return (
     <Sidebar variant="inset" collapsible={"icon"} {...props}>
       <SidebarHeader>
@@ -205,8 +219,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavActivities projects={data.projects} />
-        <NavManagement items={data.navManagement} />
+        <NavActivities activities={data.activities} currentPath={currentPath} />
+        <NavManagement items={data.navManagement} currentPath={currentPath} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>

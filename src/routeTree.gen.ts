@@ -10,85 +10,133 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as AboutImport } from './routes/about'
-import { Route as IndexImport } from './routes/index'
+import { Route as rootRoute } from "./routes/__root";
+import { Route as AboutImport } from "./routes/about";
+import { Route as IndexImport } from "./routes/index";
+import { Route as ManagementHierarchyImport } from "./routes/management/hierarchy";
+import { Route as ActivitiesOnlineCoursesIndexImport } from "./routes/activities/online-courses/index";
 
 // Create/Update Routes
 
 const AboutRoute = AboutImport.update({
-  id: '/about',
-  path: '/about',
+  id: "/about",
+  path: "/about",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const IndexRoute = IndexImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
+
+const ManagementHierarchyRoute = ManagementHierarchyImport.update({
+  id: "/management/hierarchy",
+  path: "/management/hierarchy",
+  getParentRoute: () => rootRoute,
+} as any);
+
+const ActivitiesOnlineCoursesIndexRoute =
+  ActivitiesOnlineCoursesIndexImport.update({
+    id: "/activities/online-courses/",
+    path: "/activities/online-courses/",
+    getParentRoute: () => rootRoute,
+  } as any);
 
 // Populate the FileRoutesByPath interface
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutImport
-      parentRoute: typeof rootRoute
-    }
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/about": {
+      id: "/about";
+      path: "/about";
+      fullPath: "/about";
+      preLoaderRoute: typeof AboutImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/management/hierarchy": {
+      id: "/management/hierarchy";
+      path: "/management/hierarchy";
+      fullPath: "/management/hierarchy";
+      preLoaderRoute: typeof ManagementHierarchyImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/activities/online-courses/": {
+      id: "/activities/online-courses/";
+      path: "/activities/online-courses";
+      fullPath: "/activities/online-courses";
+      preLoaderRoute: typeof ActivitiesOnlineCoursesIndexImport;
+      parentRoute: typeof rootRoute;
+    };
   }
 }
 
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  "/": typeof IndexRoute;
+  "/about": typeof AboutRoute;
+  "/management/hierarchy": typeof ManagementHierarchyRoute;
+  "/activities/online-courses": typeof ActivitiesOnlineCoursesIndexRoute;
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  "/": typeof IndexRoute;
+  "/about": typeof AboutRoute;
+  "/management/hierarchy": typeof ManagementHierarchyRoute;
+  "/activities/online-courses": typeof ActivitiesOnlineCoursesIndexRoute;
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  __root__: typeof rootRoute;
+  "/": typeof IndexRoute;
+  "/about": typeof AboutRoute;
+  "/management/hierarchy": typeof ManagementHierarchyRoute;
+  "/activities/online-courses/": typeof ActivitiesOnlineCoursesIndexRoute;
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about'
-  id: '__root__' | '/' | '/about'
-  fileRoutesById: FileRoutesById
+  fileRoutesByFullPath: FileRoutesByFullPath;
+  fullPaths:
+    | "/"
+    | "/about"
+    | "/management/hierarchy"
+    | "/activities/online-courses";
+  fileRoutesByTo: FileRoutesByTo;
+  to: "/" | "/about" | "/management/hierarchy" | "/activities/online-courses";
+  id:
+    | "__root__"
+    | "/"
+    | "/about"
+    | "/management/hierarchy"
+    | "/activities/online-courses/";
+  fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
+  IndexRoute: typeof IndexRoute;
+  AboutRoute: typeof AboutRoute;
+  ManagementHierarchyRoute: typeof ManagementHierarchyRoute;
+  ActivitiesOnlineCoursesIndexRoute: typeof ActivitiesOnlineCoursesIndexRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-}
+  ManagementHierarchyRoute: ManagementHierarchyRoute,
+  ActivitiesOnlineCoursesIndexRoute: ActivitiesOnlineCoursesIndexRoute,
+};
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
 /* ROUTE_MANIFEST_START
 {
@@ -97,7 +145,9 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/about"
+        "/about",
+        "/management/hierarchy",
+        "/activities/online-courses/"
       ]
     },
     "/": {
@@ -105,6 +155,12 @@ export const routeTree = rootRoute
     },
     "/about": {
       "filePath": "about.tsx"
+    },
+    "/management/hierarchy": {
+      "filePath": "management/hierarchy.tsx"
+    },
+    "/activities/online-courses/": {
+      "filePath": "activities/online-courses/index.tsx"
     }
   }
 }
