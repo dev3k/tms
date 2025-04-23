@@ -19,6 +19,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar.tsx";
+import { Link } from "@tanstack/react-router";
 
 export function NavManagement({
   items,
@@ -51,10 +52,10 @@ export function NavManagement({
                   tooltip={item.title}
                   isActive={isActive}
                 >
-                  <a href={item.url}>
+                  <Link to={item.url}>
                     <item.icon />
                     <span>{item.title}</span>
-                  </a>
+                  </Link>
                 </SidebarMenuButton>
                 {item.items?.length ? (
                   <>
@@ -69,12 +70,12 @@ export function NavManagement({
                         {item.items?.map((subItem) => (
                           <SidebarMenuSubItem key={subItem.title}>
                             <SidebarMenuSubButton asChild>
-                              <a href={subItem.url}>
+                              <Link to={subItem.url}>
                                 <span>{subItem.title}</span>
                                 {subItem.soon && (
                                   <Badge variant="soon">soon</Badge>
                                 )}
-                              </a>
+                              </Link>
                             </SidebarMenuSubButton>
                           </SidebarMenuSubItem>
                         ))}

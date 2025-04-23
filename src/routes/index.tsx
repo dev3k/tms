@@ -1,16 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PageHeader } from "@/components/page-header.tsx";
+// import { PageHeader } from "@/components/page-header.tsx";
 
 export const Route = createFileRoute("/")({
   component: Dashboard,
+  loader: () => ({
+    crumb: "Dashboard",
+  }),
 });
 
 function Dashboard() {
-  const breadcrumbs = [{ label: "Dashboard", isCurrentPage: true }];
+  // const breadcrumbs = [{ label: "Dashboard", isCurrentPage: true }];
 
   return (
     <>
-      <PageHeader breadcrumbs={breadcrumbs} />
+      {/*<PageHeader breadcrumbs={breadcrumbs} />*/}
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
         <div className="grid auto-rows-min gap-4 md:grid-cols-3">
           <div className="bg-muted/50 aspect-video rounded-xl" />

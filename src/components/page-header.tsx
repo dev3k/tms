@@ -10,7 +10,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { Link } from "@tanstack/react-router";
+import { Link, useMatches } from "@tanstack/react-router";
 
 export interface BreadcrumbItem {
   label: string;
@@ -18,12 +18,18 @@ export interface BreadcrumbItem {
   isCurrentPage?: boolean;
 }
 
-interface PageHeaderProps {
-  breadcrumbs: BreadcrumbItem[];
-}
+export function PageHeader() {
+  const matches = useMatches();
 
-export function PageHeader({ breadcrumbs }: PageHeaderProps) {
-  const allBreadcrumbs = [{ label: "Home", href: "/" }, ...breadcrumbs];
+  // Generate breadcrumbs from route data
+  const breadcrumbItems = matches
+    .filter((match) => match.loaderData?.crumb)
+    .map((match, index, arr) => ({
+      label: match.loaderData?.crumb,
+      href: match.pathname,
+      isCurrentPage: index === arr.length - 1,
+    }));
+
   return (
     <header className="flex h-16 shrink-0 items-center gap-2">
       <div className="flex items-center gap-2 px-4">
@@ -31,16 +37,12 @@ export function PageHeader({ breadcrumbs }: PageHeaderProps) {
         <Separator orientation="vertical" className="mr-2 h-4" />
         <Breadcrumb>
           <BreadcrumbList>
-            {allBreadcrumbs.map((crumb, index) => (
+            {breadcrumbItems.map((crumb, index) => (
               <React.Fragment key={index}>
                 {index > 0 && (
                   <BreadcrumbSeparator className="hidden md:block" />
                 )}
-                <BreadcrumbItem
-                  className={
-                    index !== breadcrumbs.length - 1 ? "hidden md:block" : ""
-                  }
-                >
+                <BreadcrumbItem>
                   {crumb.isCurrentPage ? (
                     <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
                   ) : (
