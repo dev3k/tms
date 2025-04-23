@@ -1,8 +1,7 @@
-import { FC } from "react";
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Link } from "@tanstack/react-router";
 
-const NotFoundPage: FC = () => {
+export function NotFound() {
   return (
     <div className="flex min-h-[80vh] flex-col items-center justify-center p-4 text-center">
       <h1 className="mb-2 text-4xl font-bold">404</h1>
@@ -15,6 +14,4 @@ const NotFoundPage: FC = () => {
       </Link>
     </div>
   );
-};
-
-export default NotFoundPage;
+}

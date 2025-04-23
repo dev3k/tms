@@ -35,7 +35,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Logo } from "@/components/ui/logo.tsx";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 
 const data = {
   user: {

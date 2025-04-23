@@ -1,38 +1,24 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Suspense, lazy } from "react";
-import { AppShell } from "@/components/layout/app-shell";
-import { LoadingSpinner } from "@/components/ui/loading-spinner";
-import { ErrorBoundary } from "@/components/error-boundary";
+import { createFileRoute } from "@tanstack/react-router";
+import { PageHeader } from "@/components/page-header.tsx";
 
-import { dashboardRoutes } from "@/features/dashboard/routes";
-// import { authRoutes } from '@/features/auth/routes'
-// import { userRoutes } from '@/features/users/routes'
-// Import other feature routes
+export const Route = createFileRoute("/")({
+  component: Dashboard,
+});
 
-// Lazy-loaded pages
-const NotFoundPage = lazy(() => import("@/pages/not-found"));
+function Dashboard() {
+  const breadcrumbs = [{ label: "Dashboard", href: "#" }];
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <AppShell />,
-    errorElement: <ErrorBoundary />,
-    children: [
-      ...dashboardRoutes,
-      // ...userRoutes,
-      // Other feature routes
-      {
-        path: "*",
-        element: (
-          <Suspense fallback={<LoadingSpinner />}>
-            <NotFoundPage />
-          </Suspense>
-        ),
-      },
-    ],
-  },
-]);
-
-export function AppRouter() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <PageHeader breadcrumbs={breadcrumbs} />
+      <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+        <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+          <div className="bg-muted/50 aspect-video rounded-xl" />
+          <div className="bg-muted/50 aspect-video rounded-xl" />
+          <div className="bg-muted/50 aspect-video rounded-xl" />
+        </div>
+        <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" />
+      </div>
+    </>
+  );
 }

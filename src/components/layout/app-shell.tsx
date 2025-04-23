@@ -1,14 +1,12 @@
 import { AppSidebar } from "@/components/sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { Outlet } from "react-router-dom";
+import { ReactNode } from "@tanstack/react-router";
 
-function AppShell() {
+function AppShell({ children }: { children: ReactNode }) {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <SidebarInset>
-        <Outlet />
-      </SidebarInset>
+      <SidebarInset>{children}</SidebarInset>
     </SidebarProvider>
   );
 }
