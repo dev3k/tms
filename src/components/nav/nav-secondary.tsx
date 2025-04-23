@@ -15,6 +15,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu.tsx";
+import { useTranslation } from "react-i18next";
 
 export function NavSecondary({
   items,
@@ -27,20 +28,15 @@ export function NavSecondary({
   }[];
 } & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
   const { isMobile } = useSidebar();
+  const { i18n } = useTranslation();
+
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+  };
   return (
     <SidebarGroup {...props}>
       <SidebarGroupContent>
         <SidebarMenu>
-          {items.map((item) => (
-            <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton asChild size="sm">
-                <a href={item.url}>
-                  <item.icon />
-                  <span>{item.title}</span>
-                </a>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          ))}
           <DropdownMenu>
             <SidebarMenuItem>
               <DropdownMenuTrigger asChild>
@@ -57,17 +53,27 @@ export function NavSecondary({
                 className="min-w-56 rounded-lg"
               >
                 <DropdownMenuItem asChild key="english">
-                  <a href="#">English</a>
+                  <button onClick={() => changeLanguage("en")}>English</button>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild key="arabic">
-                  <a href="#">عربى</a>
+                  <button onClick={() => changeLanguage("ar")}>عربى</button>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild key="french">
-                  <a href="#">Français</a>
+                  <button onClick={() => changeLanguage("fr")}>Français</button>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </SidebarMenuItem>
           </DropdownMenu>
+          {items.map((item) => (
+            <SidebarMenuItem key={item.title}>
+              <SidebarMenuButton asChild size="sm">
+                <a href={item.url}>
+                  <item.icon />
+                  <span>{item.title}</span>
+                </a>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>

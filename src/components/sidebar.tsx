@@ -37,6 +37,7 @@ import {
 import { Logo } from "@/components/ui/logo.tsx";
 import { Link, useRouter } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const data = {
   user: {
@@ -186,6 +187,7 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { i18n } = useTranslation();
   const router = useRouter();
   const [currentPath, setCurrentPath] = useState(
     router.state.location.pathname,
@@ -199,8 +201,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
     return () => unsubscribe();
   }, [router]);
+
+  const isRTL = i18n.language === "ar";
+
   return (
-    <Sidebar variant="inset" collapsible={"icon"} {...props}>
+    <Sidebar
+      variant="inset"
+      collapsible={"icon"}
+      side={isRTL ? "right" : "left"}
+      {...props}
+    >
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>

@@ -11,6 +11,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Link, useMatches } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 
 export interface BreadcrumbItem {
   label: string;
@@ -19,6 +20,8 @@ export interface BreadcrumbItem {
 }
 
 export function PageHeader() {
+  const { t } = useTranslation();
+
   const matches = useMatches();
 
   // Generate breadcrumbs from route data
@@ -44,10 +47,10 @@ export function PageHeader() {
                 )}
                 <BreadcrumbItem>
                   {crumb.isCurrentPage ? (
-                    <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
+                    <BreadcrumbPage>{t(crumb.label ?? "")}</BreadcrumbPage>
                   ) : (
                     <BreadcrumbLink asChild>
-                      <Link to={crumb.href || "#"}>{crumb.label}</Link>
+                      <Link to={crumb.href || "#"}>{t(crumb.label ?? "")}</Link>
                     </BreadcrumbLink>
                   )}
                 </BreadcrumbItem>
