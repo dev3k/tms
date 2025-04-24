@@ -3,13 +3,15 @@ import {
   ErrorComponent,
   Outlet,
 } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+// import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AppShell } from "@/components/layout/app-shell.tsx";
 import { NotFound } from "@/components/errors/not-found.tsx";
 import { useTranslation } from "react-i18next";
 import "@/i18n";
 import { i18n } from "i18next";
 import { useEffect } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 interface MyRouteContext {
   i18n: i18n;
@@ -25,6 +27,7 @@ export const Route = createRootRoute<MyRouteContext>({
 });
 
 function RootComponent() {
+  const queryClient = new QueryClient();
   const i18n = useTranslation().i18n;
   Route.options.context = () => ({
     i18n,
@@ -37,10 +40,13 @@ function RootComponent() {
   }, [i18n.language]);
   return (
     <>
-      <AppShell>
-        <Outlet />
-      </AppShell>
-      <TanStackRouterDevtools />
+      <QueryClientProvider client={queryClient}>
+        <AppShell>
+          <Outlet />
+        </AppShell>
+        {/*<TanStackRouterDevtools />*/}
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </>
   );
 }

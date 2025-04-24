@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
+import { Leaderboard } from "@/features/dashboard/components/leaderboard.tsx";
 
 export const Route = createFileRoute("/")({
   component: Dashboard,
@@ -13,6 +14,7 @@ function Dashboard() {
 
   return (
     <>
+      <Leaderboard />
       <h1 className="text-2xl font-bold">{t("Dashboard")}</h1>
       <div className="grid auto-rows-min gap-4 md:grid-cols-3">
         <div className="bg-muted/50 aspect-video rounded-xl" />
