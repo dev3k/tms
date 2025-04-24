@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useTranslation } from "react-i18next";
 import { Leaderboard } from "@/features/dashboard/components/leaderboard.tsx";
 import data from "@/data.json";
 import { SectionCards } from "@/features/dashboard/components/section-cards.tsx";
@@ -14,11 +13,8 @@ export const Route = createFileRoute("/")({
 });
 
 function Dashboard() {
-  const { t } = useTranslation();
-
   return (
     <>
-      <h1 className="text-2xl font-bold">{t("Dashboard")}</h1>
       <div className="flex flex-1 flex-col">
         <div className="@container/main flex flex-1 flex-col gap-2">
           <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
