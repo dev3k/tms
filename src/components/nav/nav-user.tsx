@@ -29,6 +29,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar.tsx";
+import { ModeToggle } from "@/components/mode-toggle.tsx";
 
 export function NavUser({
   user,
@@ -101,6 +102,8 @@ export function NavUser({
                 Change Password
               </DropdownMenuItem>
             </DropdownMenuGroup>
+            <DropdownMenuSeparator />
+            <ModeToggle />
             <DropdownMenuSeparator />
             <DropdownMenuItem>
               <LogOut />
